@@ -38,7 +38,7 @@ func NewUTXOTransaction(from, to string, amount int, bc *Blockchain) *Transactio
 	var inputs []TXInput
 	var outputs []TXOutput
 
-	acc, validOutputs := bc.FindSpendableOutputs(from, amount)
+	acc, validOutputs := bc.FindSpendableOutputs(from, amount) //为什么要带amount参数
 
 	if acc < amount {
 		log.Panic("ERROR: Not enough funds")
@@ -86,7 +86,7 @@ Work:
 		txID := hex.EncodeToString(tx.ID)
 
 		for outIdx, out := range tx.Vout {
-			if out.CanBeUnlockedWith(address) && accumulated < amount {
+			if out.CanBeUnlockedWith(address) && accumulated < amount {//条件1解锁账号，条件2获得足够的钱就可以了
 				accumulated += out.Value
 				unspentOutputs[txID] = append(unspentOutputs[txID], outIdx)
 
