@@ -29,8 +29,8 @@ func (out *TXOutput) CanBeUnlockedWith(unlockingData string) bool {
 ```go
 func (bc *Blockchain) FindUnspentTransactions(address string) []Transaction {
   var unspentTXs []Transaction
-  spentTXOs := make(map[string][]int)
-  bci := bc.Iterator()
+  spentTXOs := make(map[string][]int)//花费
+  bci := bc.Iterator()
 
   for {
     block := bci.Next()
